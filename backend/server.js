@@ -100,6 +100,17 @@ app.use('/api/*', (req, res) => {
   });
 });
 
+// Catch-all for any other path
+app.use((req, res) => {
+  if (req.path === '/' || req.path === '') {
+    return res.json({ message: 'ChatPal Backend API', status: 'running', timestamp: new Date().toISOString() });
+  }
+  res.status(404).json({
+    success: false,
+    message: `Endpoint not found: ${req.method} ${req.path}`
+  });
+});
+
 // Global error handler middleware (MUST be last)
 app.use((err, req, res, next) => {
   console.error('❌ Global Error Handler:', err.message);
