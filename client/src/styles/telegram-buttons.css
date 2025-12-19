@@ -1,0 +1,51 @@
+/* Telegram-inspired premium button system */
+button, .btn, [role="button"] {
+  border-radius: 10px !important;
+  transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 1px 4px rgba(42, 171, 238, 0.04);
+  outline: none;
+  border: none;
+  position: relative;
+  z-index: 1;
+}
+
+button:focus, .btn:focus, [role="button"]:focus {
+  box-shadow: 0 0 0 2px var(--primary, #2AABEE), 0 1px 4px rgba(42, 171, 238, 0.08);
+}
+
+button:not([disabled]):hover, .btn:not([disabled]):hover, [role="button"]:not([disabled]):hover {
+  transform: scale(1.04);
+  box-shadow: 0 4px 16px rgba(42, 171, 238, 0.10), 0 1.5px 8px rgba(42, 171, 238, 0.08);
+  background-color: var(--primary, #2AABEE);
+  color: #fff;
+  cursor: pointer;
+}
+
+button:not([disabled]):active, .btn:not([disabled]):active, [role="button"]:not([disabled]):active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(42, 171, 238, 0.08);
+}
+
+/* Secondary button style */
+.btn-secondary, button.secondary {
+  background: transparent;
+  border: 1px solid var(--border-color, #E2E8F0);
+  color: var(--primary, #2AABEE);
+}
+
+.btn-secondary:hover, button.secondary:hover {
+  background: rgba(42, 171, 238, 0.08);
+  color: var(--primary-dark, #1E96D4);
+}
+
+/* For icon buttons */
+.icon-btn, button.icon {
+  border-radius: 50% !important;
+  padding: 8px;
+  background: transparent;
+  transition: background 0.2s, transform 0.2s;
+}
+.icon-btn:hover, button.icon:hover {
+  background: rgba(42, 171, 238, 0.12);
+  transform: scale(1.12);
+}

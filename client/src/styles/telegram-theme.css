@@ -1,0 +1,436 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   TELEGRAM-INSPIRED DESIGN SYSTEM
+   Premium, clean, modern UI similar to Telegram Web
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ─────────────────────────────────────────────────────────────────────────
+   COLOR SYSTEM (CSS Variables)
+   ───────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Light Theme */
+  --bg-main: #FFFFFF;
+  --bg-secondary: #F5F7FA;
+  --bg-chat: #EAEFF5;
+  --primary: #2AABEE;
+  --primary-dark: #1E96D4;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --border-color: #E2E8F0;
+  --sent-bubble: #2AABEE;
+  --received-bubble: #FFFFFF;
+  --hover-bg: rgba(42, 171, 238, 0.1);
+  --active-bg: rgba(42, 171, 238, 0.15);
+  --online-indicator: #22C55E;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+  /* Dark Theme */
+  --bg-main: #0E1621;
+  --bg-secondary: #17212B;
+  --bg-chat: #0B141C;
+  --primary: #2AABEE;
+  --primary-dark: #1E96D4;
+  --text-primary: #E5E7EB;
+  --text-secondary: #9CA3AF;
+  --border-color: #1F2937;
+  --sent-bubble: #2AABEE;
+  --received-bubble: #17212B;
+  --hover-bg: rgba(42, 171, 238, 0.15);
+  --active-bg: rgba(42, 171, 238, 0.2);
+  --online-indicator: #22C55E;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   TYPOGRAPHY
+   ───────────────────────────────────────────────────────────────────────── */
+
+* {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background-color: var(--bg-main);
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SCROLLBARS
+   ───────────────────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   MESSAGE BUBBLES
+   ───────────────────────────────────────────────────────────────────────── */
+
+.message-bubble-sent {
+  background: var(--sent-bubble);
+  color: #FFFFFF;
+  border-radius: 18px 18px 4px 18px;
+  padding: 10px 14px;
+  max-width: 65%;
+  box-shadow: var(--shadow-sm);
+  line-height: 1.4;
+  font-size: 14px;
+}
+
+.message-bubble-received {
+  background: var(--received-bubble);
+  color: var(--text-primary);
+  border-radius: 18px 18px 18px 4px;
+  padding: 10px 14px;
+  max-width: 65%;
+  box-shadow: var(--shadow-sm);
+  line-height: 1.4;
+  font-size: 14px;
+  border: 1px solid var(--border-color);
+}
+
+/* Group consecutive messages */
+.message-grouped {
+  margin-top: 2px;
+}
+
+.message-grouped .message-bubble-sent {
+  border-radius: 18px 18px 4px 18px;
+}
+
+.message-grouped .message-bubble-received {
+  border-radius: 18px 18px 18px 4px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   COMPACT MODE
+   ───────────────────────────────────────────────────────────────────────── */
+
+.compact-mode .message-bubble-sent,
+.compact-mode .message-bubble-received {
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 12px 12px 4px 12px;
+  max-width: 70%;
+}
+
+.compact-mode .message-bubble-received {
+  border-radius: 12px 12px 12px 4px;
+}
+
+.compact-mode .message-grouped {
+  margin-top: 1px;
+}
+
+.compact-mode .avatar {
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+}
+
+.compact-mode .message-item {
+  margin-bottom: 4px;
+}
+
+.compact-mode .message-item:not(.message-grouped) {
+  margin-top: 8px;
+}
+
+.compact-mode .sidebar-item {
+  padding: 8px 12px;
+}
+
+.compact-mode .sidebar-item .avatar {
+  width: 36px;
+  height: 36px;
+  font-size: 14px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   BUTTONS
+   ───────────────────────────────────────────────────────────────────────── */
+
+.btn-primary {
+  background: var(--primary);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.btn-secondary:hover {
+  background: var(--hover-bg);
+  border-color: var(--primary);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   INPUTS
+   ───────────────────────────────────────────────────────────────────────── */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+textarea {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: var(--text-primary);
+  font-size: 14px;
+  transition: all 200ms ease;
+  width: 100%;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: var(--bg-main);
+  box-shadow: 0 0 0 3px rgba(42, 171, 238, 0.1);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-secondary);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   CARDS & CONTAINERS
+   ───────────────────────────────────────────────────────────────────────── */
+
+.card {
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SIDEBAR STYLING
+   ───────────────────────────────────────────────────────────────────────── */
+
+.sidebar-item {
+  padding: 12px 16px;
+  border-radius: 10px;
+  transition: all 150ms ease;
+  cursor: pointer;
+}
+
+.sidebar-item:hover {
+  background: var(--hover-bg);
+}
+
+.sidebar-item.active {
+  background: var(--active-bg);
+  border-left: 3px solid var(--primary);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   AVATAR
+   ───────────────────────────────────────────────────────────────────────── */
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 16px;
+  color: #FFFFFF;
+  position: relative;
+}
+
+.avatar-online::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  background: var(--online-indicator);
+  border: 2px solid var(--bg-main);
+  border-radius: 50%;
+}
+
+[data-theme="dark"] .avatar-online::after {
+  border-color: var(--bg-secondary);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   BADGES
+   ───────────────────────────────────────────────────────────────────────── */
+
+.badge {
+  background: var(--primary);
+  color: #FFFFFF;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   UTILITY CLASSES
+   ───────────────────────────────────────────────────────────────────────── */
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.bg-main {
+  background-color: var(--bg-main);
+}
+
+.bg-secondary {
+  background-color: var(--bg-secondary);
+}
+
+.bg-chat {
+  background-color: var(--bg-chat);
+}
+
+.border-primary {
+  border-color: var(--border-color);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   ANIMATIONS
+   ───────────────────────────────────────────────────────────────────────── */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 200ms ease-in-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 300ms ease-in-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 200ms ease-in-out;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   RESPONSIVE
+   ───────────────────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .message-bubble-sent,
+  .message-bubble-received {
+    max-width: 80%;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   ACCESSIBILITY
+   ───────────────────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
