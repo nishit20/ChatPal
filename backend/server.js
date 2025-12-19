@@ -39,6 +39,10 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Health check endpoint
+app.get('/', (req, res) => {
+  res.json({ message: 'ChatPal Backend API', status: 'running', timestamp: new Date().toISOString() });
+});
+
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
