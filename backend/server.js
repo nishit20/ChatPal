@@ -155,7 +155,19 @@ const initDatabase = async () => {
   }
 };
 
-const io = new Server(server, { cors: { origin: '*' } });
+// Socket.IO CORS configuration for production
+const socketCorsOptions = {
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'https://chat-pal-three.vercel.app',
+    process.env.FRONTEND_URL || ''
+  ].filter(Boolean),
+  credentials: true,
+  methods: ['GET', 'POST']
+};
+
+const io = new Server(server, { cors: socketCorsOptions });
 
 // Export io instance for use in controllers
 const socketService = require('./services/socket');
