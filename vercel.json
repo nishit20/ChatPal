@@ -1,5 +1,9 @@
 {
-  "buildCommand": "cd client && npm install && npm run build",
+  "buildCommand": "cd client && npm install && VITE_API_BASE_URL=https://chatpal-backend.onrender.com npm run build",
   "outputDirectory": "client/dist",
-  "installCommand": "npm install --prefix client"
+  "installCommand": "npm install --prefix client",
+  "env": {
+    "VITE_API_BASE_URL": "@vite_api_base_url"
+  }
 }
+

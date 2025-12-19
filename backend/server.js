@@ -48,6 +48,11 @@ app.get('/test', (req, res) => {
   res.json({ message: 'Backend is working!' });
 });
 
+// API test endpoint
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'API is working!', timestamp: new Date().toISOString() });
+});
+
 // API info endpoint
 app.get('/api', (req, res) => {
   res.json({
