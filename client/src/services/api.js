@@ -2,7 +2,13 @@ import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 console.log('🌐 API Base URL:', API_BASE_URL);
-const instance = axios.create({ baseURL: `${API_BASE_URL}/api`, timeout: 15000 });
+console.log('🔍 Environment:', import.meta.env.MODE);
+
+const instance = axios.create({ 
+  baseURL: `${API_BASE_URL}/api`, 
+  timeout: 30000,  // Increased timeout
+  withCredentials: false
+});
 let token = null;
 
 // Mark network errors so UI can show meaningful messages
@@ -26,17 +32,11 @@ const setToken = (t) => {
 // Request interceptor for debugging
 instance.interceptors.request.use(
   (config) => {
-    // Log upload requests
-    if (config.url?.includes('upload') || config.url?.includes('profile-picture')) {
-      console.log('📤 API Request:', config.method?.toUpperCase(), config.baseURL + config.url);
-      console.log('Headers:', {
-        'Content-Type': config.headers['Content-Type'],
-        'Authorization': config.headers['Authorization'] ? 'Present' : 'Missing'
-      });
-    }
+    console.log('📤 Request:', config.method?.toUpperCase(), config.url, 'Base:', config.baseURL);
     return config;
   },
   (error) => {
+    console.error('❌ Request error:', error);
     return Promise.reject(error);
   }
 );

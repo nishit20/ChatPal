@@ -25,20 +25,13 @@ const Call = require('./models/Call');
 const app = express();
 const server = http.createServer(app);
 
-// CORS configuration for production
-const corsOptions = {
-  origin: [
-    'http://localhost:3000',
-    'http://localhost:5173',
-    'https://chat-pal-three.vercel.app',
-    process.env.FRONTEND_URL || ''
-  ].filter(Boolean),
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-};
-
-app.use(cors(corsOptions));
+// CORS configuration for production - ALLOW ALL for debugging
+app.use(cors());
+// Log all requests
+app.use((req, res, next) => {
+  console.log(`📨 ${req.method} ${req.path}`, req.body ? JSON.stringify(req.body).substring(0, 100) : '');
+  next();
+});
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
@@ -155,19 +148,13 @@ const initDatabase = async () => {
   }
 };
 
-// Socket.IO CORS configuration for production
-const socketCorsOptions = {
-  origin: [
-    'http://localhost:3000',
-    'http://localhost:5173',
-    'https://chat-pal-three.vercel.app',
-    process.env.FRONTEND_URL || ''
-  ].filter(Boolean),
-  credentials: true,
-  methods: ['GET', 'POST']
-};
-
-const io = new Server(server, { cors: socketCorsOptions });
+const io = new Server(server, { 
+  cors: { 
+    origin: '*',
+    methods: ['GET', 'POST'],
+    credentials: false
+  } 
+});
 
 // Export io instance for use in controllers
 const socketService = require('./services/socket');
