@@ -6,8 +6,8 @@ let socket = null;
 const getBackendUrl = () => {
   try {
     // Vite exposes env vars as import.meta.env
-    // VITE_API_URL can be set to 'http://localhost:5000' in dev
-    return import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    // VITE_API_BASE_URL should be set to your deployed backend URL
+    return import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
   } catch (e) {
     return 'http://localhost:5000';
   }
