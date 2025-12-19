@@ -57,6 +57,11 @@ app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working!', timestamp: new Date().toISOString() });
 });
 
+// Auth test endpoint
+app.get('/api/auth/test', (req, res) => {
+  res.json({ message: 'Auth API is working!', timestamp: new Date().toISOString() });
+});
+
 // API info endpoint
 app.get('/api', (req, res) => {
   res.json({

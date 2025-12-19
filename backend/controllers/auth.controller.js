@@ -31,6 +31,7 @@ const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((email || '').
 
 const register = async (req, res) => {
   try {
+    console.log('📝 Register request received:', JSON.stringify(req.body).substring(0, 100));
     const { fullName, username, email, phoneNumber, password } = req.body || {};
     const trimmedName = (fullName || '').trim();
     const normalizedUsername = (username || '').trim().toLowerCase();
@@ -93,13 +94,14 @@ const register = async (req, res) => {
       user: safeUser,
     });
   } catch (err) {
-    console.error('Register error:', err);
+    console.error('❌ Register error:', err.message);
+    console.error('Full error:', err);
     // Handle duplicate key errors explicitly
     if (err?.code === 11000 && err?.keyPattern) {
       const field = Object.keys(err.keyPattern)[0];
       return res.status(400).json({ success: false, message: `${field} already exists` });
     }
-    return res.status(500).json({ success: false, message: 'Internal server error' });
+    return res.status(500).json({ success: false, message: 'Internal server error: ' + err.message });
   }
 };
 
